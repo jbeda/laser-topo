@@ -1,0 +1,15 @@
+{
+  "layers":[{
+    "src": "rainier/w001001-contours.shp",
+    "attributes": ["elev"],
+    "simplify": 0.5,
+    "join": {
+      "group-by": "elev"
+    }
+  }],
+  "proj": {
+    "id": "laea",
+    "lon0": -121.7608787,
+    "lat0": 46.8517996
+  }
+}

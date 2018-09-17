@@ -1,0 +1,18 @@
+{
+  "name": "laser-topo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "laser-topo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "d3": "^5.7.0",
+    "d3-node": "^2.0.1",
+    "mapshaper": "^0.4.94",
+    "numeral": "^2.0.6",
+    "topojson": "^3.0.2"
+  }
+}
