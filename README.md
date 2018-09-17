@@ -2,6 +2,8 @@
 
 **This is still very early. This is a one time thing for Rainier. I'll work to generalize this over time perhaps.**
 
+![Example topo map of Mt Rainier](example.jpg)
+
 ## Prereqs
 
 * [gdal](https://www.gdal.org/) tools.  Install with `brew install gdal` on macOS
