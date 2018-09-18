@@ -12,11 +12,21 @@
 ## Download image
 Download map from https://viewer.nationalmap.gov/basic/#startUp.
 
-We are looking for 3DEP (3D elevation program) product data. This is high resolution elevations. I downloaded the 1/3 arc second data and it seems to be good enough.  Everything fit on one tile so I didn't have to play around with stitching them together or anything.  Check out this video: https://www.youtube.com/watch?v=ybI5-2GcGLQ
+We are looking for 3DEP (3D elevation program) product data.
+This is high resolution elevations.
+I downloaded the 1/3 arc second data and it seems to be good enough.
+Everything fit on one tile so I didn't have to play around with stitching them together or anything.
+Check out this video: https://www.youtube.com/watch?v=ybI5-2GcGLQ
 
-Looks like there may be an API to download imagery. https://elevation.nationalmap.gov/arcgis/sdk/rest/index.html#//02ss00000021000000.  Need to do more research to see if I can build a tool. Unclear what the API really is. I think this is the [discovery doc](https://index.nationalmap.gov/arcgis/rest/services/3DEPElevationIndex/MapServer?f=pjson) and the API is documented [here](https://developers.arcgis.com/rest/services-reference/resources-and-operations.htm).  There looks to be a client [here](https://github.com/Esri/arcgis-rest-js) but it isn't clear if it supports the methods we'd need.
+Looks like there may be an API to download imagery.
+https://elevation.nationalmap.gov/arcgis/sdk/rest/index.html#//02ss00000021000000.
+I need to do more research to see if I can build a tool.
+It's unclear what the API really is.
+I think this is the [discovery doc](https://index.nationalmap.gov/arcgis/rest/services/3DEPElevationIndex/MapServer?f=pjson) and the API is documented [here](https://developers.arcgis.com/rest/services-reference/resources-and-operations.htm).
+There looks to be a client [here](https://github.com/Esri/arcgis-rest-js) but it isn't clear if it supports the methods we'd need.
 
-Download the file from the browser or with curl (359MB) and unzip it. To download the file directly:
+Download the file from the browser or with curl (359MB) and unzip it.
+To download the file directly:
 
 ```bash
 mkdir rainier
@@ -28,7 +38,8 @@ unzip USGS_NED_13_n47w122_ArcGrid.zip
 
 ## Cropping
 
-I picked the center of rainier and some upper/lower corners using google maps.  These are lat/longs.
+I picked the center of rainier and some upper/lower corners using google maps.
+These are lat/longs.
 
 * Center of rainier:  46.8517996,-121.7608787
 * Upper left, approx: 46.9280266,-121.8643717
@@ -49,7 +60,9 @@ gdalwarp -te -121.8808787 46.7767996 -121.6408787 46.9267996 rainier/grdn47w122_
 
 ## Extract contours
 
-With some trial and error, I found that I get a nice number of layers if I do it every 250 meters.  The output format we are using here is [topojson](https://github.com/topojson/topojson/wiki). It is friendly with other tools we are using and d3.js.
+With some trial and error, I found that I get a nice number of layers if I do it every 250 meters.
+The output format we are using here is [topojson](https://github.com/topojson/topojson/wiki).
+It is friendly with other tools we are using and d3.js.
 
 ```bash
 gdal_contour -a elev -i 250 rainier-clipped.tif rainier-raw.topojson
@@ -58,7 +71,8 @@ gdal_contour -a elev -i 250 rainier-clipped.tif rainier-raw.topojson
 ## Convert to SVG
 
 ### Try 1: Kartograph [deprectated]
-Kartograph is deprecated but super easy to use and goes directly
+Kartograph is deprecated but super easy to use and goes directly to SVG.
+The "program" is also a JSON file.
 
 ```bash
 # Convert to SVG
@@ -80,6 +94,10 @@ mapshaper rainier-raw.topojson \
 ```
 ### Try 3: node program using mapshaper and d3
 
-See [laser-topo.js](laser-topo.js) for details.  Basically this will take the raw topojson, filter and simplify it and then output an SVG file per laser sheet.
+See [laser-topo.js](laser-topo.js) for details.
+Basically this will take the raw topojson, filter and simplify it and then output an SVG file per laser sheet.
 
 ```bash
+npm install
+node laser-topo.js
+```
